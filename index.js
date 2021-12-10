@@ -452,7 +452,11 @@ function windowCreateFinish(json) {
     elements[json.targetID].on('minimize', () => { client.write(json.targetID, consts.eventNames.windowEventMinimize) })
     elements[json.targetID].on('move', () => { client.write(json.targetID, consts.eventNames.windowEventMove) })
     elements[json.targetID].on('ready-to-show', () => { client.write(json.targetID, consts.eventNames.windowEventReadyToShow) })
-    elements[json.targetID].on('resize', () => { client.write(json.targetID, consts.eventNames.windowEventResize) })
+    elements[json.targetID].on('resize', () => {
+        client.write(json.targetID, consts.eventNames.windowEventResize,
+            {windowOptions:{width:elements[json.targetID].getContentBounds().width,height:elements[json.targetID].getContentBounds().height}}
+            )
+    })
     elements[json.targetID].on('restore', () => { client.write(json.targetID, consts.eventNames.windowEventRestore) })
     elements[json.targetID].on('show', () => { client.write(json.targetID, consts.eventNames.windowEventShow) })
     elements[json.targetID].on('unmaximize', () => { client.write(json.targetID, consts.eventNames.windowEventUnmaximize) })
